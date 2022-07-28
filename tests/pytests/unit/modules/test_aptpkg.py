@@ -1235,7 +1235,7 @@ def test_sourceslist_multiple_comps():
     repo_line = "deb http://archive.ubuntu.com/ubuntu/ focal-updates main restricted"
     with patch.object(aptpkg, "HAS_APT", return_value=True):
         with patch("salt.utils.files.fopen", mock_open(read_data=repo_line)):
-            with patch("pathlib.Path.is_file", side_effect=[True, False]):
+            with patch("pathlib.Path.is_file", side_effect=[True, False, True, True, True, True]):
                 sources = aptpkg.SourcesList()
                 for source in sources:
                     assert source.type == "deb"
@@ -1264,7 +1264,7 @@ def test_sourceslist_architectures(repo_line):
     Test SourcesList when architectures is in repo
     """
     with patch("salt.utils.files.fopen", mock_open(read_data=repo_line)):
-        with patch("pathlib.Path.is_file", side_effect=[True, False]):
+        with patch("pathlib.Path.is_file", side_effect=[True, False, True, True, True, True]):
             sources = aptpkg.SourcesList()
             for source in sources:
                 assert source.type == "deb"
