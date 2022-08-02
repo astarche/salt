@@ -3446,6 +3446,8 @@ def info_installed(*names, **kwargs):
     """
     kwargs = salt.utils.args.clean_kwargs(**kwargs)
     failhard = kwargs.pop("failhard", True)
+    # alex.starche: Allow attr kwarg for compatibility with SystemLink Server.
+    _ = kwargs.pop("attr", True)
     if kwargs:
         salt.utils.args.invalid_kwargs(kwargs)
 
